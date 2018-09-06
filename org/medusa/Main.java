@@ -1,18 +1,25 @@
 package org.medusa;
 
+import com.anti_captcha.AccountCreationThread;
 import com.anti_captcha.Api.NoCaptchaProxyless;
 import com.anti_captcha.Helper.DebugHelper;
 
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
+import org.medusa.GUI.MainGUI;
+import org.medusa.GUI.NotificationGUI;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -34,8 +41,10 @@ public class Main {
 	public static String emailPrefix = "";
 	public static String passwd = "";
 	
-	public static double version = 0.1;
+	public static double version = 0.2;
 	public static String v = "Alpha";
+	
+	public static boolean proxies = false;
 	
 	public static int currentProgressive = 0;
 	public static int currentNumber = 0;
@@ -46,7 +55,7 @@ public class Main {
 	public static int completeNumber = 0;
 	
 	static String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    static File logFile = new File(timeLog + randomAlphaNumeric(2) + ".txt");
+    public static File logFile = new File(timeLog + randomAlphaNumeric(2) + ".txt");
 	
     public static void main(String[] args) throws InterruptedException, MalformedURLException, JSONException {
     	System.out.println("Welcome to Medusa's Account Creator (v" + version + "-" + v + ")");
@@ -55,7 +64,7 @@ public class Main {
     	gui.setVisible(true);
     }
 
-    public static void createAccount() throws MalformedURLException, InterruptedException {
+    public static void createAccount(String ip, int port) throws MalformedURLException, InterruptedException {
     	System.out.println("Waiting for captcha code... This might take a while...");
         DebugHelper.setVerboseMode(false);
         NoCaptchaProxyless api = new NoCaptchaProxyless();
@@ -71,13 +80,18 @@ public class Main {
 	        completeNumber++;
         } else {
         	currentProgressive++;
-            createPost(api.getTaskSolution().getGRecaptchaResponse());
+        	if (proxies) {
+        		createProxyPost(api.getTaskSolution().getGRecaptchaResponse(), ip, port);
+        	} else {
+                createPost(api.getTaskSolution().getGRecaptchaResponse());
+        	}
         }
     }
     
     public static void createPost(String string) {
+		HttpClient httpclient = HttpClients.createDefault();
     	try {
-    	HttpClient httpclient = HttpClients.createDefault();
+    		
     	HttpPost httppost = new HttpPost("https://secure.runescape.com/m=account-creation/create_account");
 
     	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
@@ -107,7 +121,7 @@ public class Main {
     	httppost.setHeader("Referer", "http://oldschool.runescape.com/");
     	
     	//Execute and get the response.
-    	HttpResponse response = httpclient.execute(httppost);
+        HttpResponse response = httpclient.execute(httppost);
     	HttpEntity entity = response.getEntity();
 
     	if (entity != null) {
@@ -129,7 +143,7 @@ public class Main {
     	        	NotificationGUI gui = new NotificationGUI("complete");
     	        	gui.setAlwaysOnTop(true);
     	        	gui.setVisible(true);
-    	        	MainGUI.running = false;
+    	        	completeNumber = 0;
     	        }
     	        } else {
     	        System.out.println("Creation failed...");
@@ -137,6 +151,89 @@ public class Main {
     	    } finally {
     	        instream.close();
     	    }
+    	}
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public static void createProxyPost(String gresponse, String ip, int port) {
+    	try {
+    		HttpHost proxy = new HttpHost(ip, port);
+    		DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
+    		CloseableHttpClient httpclient2 = HttpClients.custom().setRoutePlanner(routePlanner).build();
+    		
+    		HttpPost httppost = new HttpPost("https://secure.runescape.com/m=account-creation/create_account");
+
+        	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
+        	String password = passwd;
+        	String username = randomAlphaNumeric(12);
+        	
+        	// Request parameters and other properties.
+    	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+    	params.add(new BasicNameValuePair("email1", email));
+    	params.add(new BasicNameValuePair("onlyOneEmail", "1"));
+    	params.add(new BasicNameValuePair("password1", password));
+    	params.add(new BasicNameValuePair("onlyOnePassword", "1"));
+    	params.add(new BasicNameValuePair("displayname", username));
+    	params.add(new BasicNameValuePair("day", "1"));
+    	params.add(new BasicNameValuePair("month", "2"));
+    	params.add(new BasicNameValuePair("year", "1999"));
+    	params.add(new BasicNameValuePair("g-recaptcha-response", gresponse));
+    	params.add(new BasicNameValuePair("submit", "Play Now"));
+    	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+    	//Set headers
+    	httppost.setHeader("Host", "secure.runescape.com");
+    	httppost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT x.y; rv:10.0) Gecko/20100101 Firefox/10.0");
+    	httppost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+    	httppost.setHeader("Accept-Language", "en-US,en);q=0.5");
+    	httppost.setHeader("Accept-Encoding", "gzip, deflate, br");
+    	httppost.setHeader("Referer", "http://oldschool.runescape.com/");
+    	
+    	try {
+    	//Execute and get the response.
+        HttpResponse response = httpclient2.execute(httppost);
+    	HttpEntity entity = response.getEntity();
+    	if (entity != null) {
+    	    InputStream instream = entity.getContent();
+    	    String getResponseString = readStream(instream);
+
+	        completeNumber++;
+    	    try {
+            	System.out.println("-----------------------");
+            	System.out.println(email + ":" + password + ":" + username + "(Proxy: " + ip + ":" + port + ")");
+    	        if (getResponseString.contains("Account Created") || getResponseString.length() < 2){
+    	        currentNumber++;
+    	        System.out.println(currentNumber + "/" + accountsWanted + " accounts made.");
+    	        writeFile(email + ":" + password + ":" + username);
+    	        
+    	        if (completeNumber >= accountsWanted) {
+                	System.out.println("-----------------------");
+    	        	System.out.println("Task done");
+    	        	NotificationGUI gui = new NotificationGUI("complete");
+    	        	gui.setAlwaysOnTop(true);
+    	        	gui.setVisible(true);
+    	        	completeNumber = 0;
+    	        }
+    	        } else {
+    	        System.out.println("Creation failed...");
+    	        }
+    	    } finally {
+    	        instream.close();
+    	    }
+    	}
+    	} catch (IOException e) {
+	        completeNumber++;
+    		System.out.println("Failed to connect to proxy");
+    		if (completeNumber >= accountsWanted) {
+            	System.out.println("-----------------------");
+	        	System.out.println("Task done");
+	        	NotificationGUI gui = new NotificationGUI("complete");
+	        	gui.setAlwaysOnTop(true);
+	        	gui.setVisible(true);
+	        	completeNumber = 0;
+	        }
     	}
     	} catch (IOException e) {
     		e.printStackTrace();

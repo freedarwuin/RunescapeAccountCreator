@@ -1,10 +1,12 @@
-package org.medusa;
+package org.medusa.GUI;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.medusa.Main;
 
 import com.anti_captcha.AccountCreationThread;
 
@@ -140,6 +142,18 @@ public class MainGUI extends JFrame {
 		lblJavajarPathtofilejar.setBounds(276, 185, 246, 14);
 		contentPane.add(lblJavajarPathtofilejar);
 		
+		JButton btnProxies = new JButton("Proxies");
+		btnProxies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ProxyGUI p = new ProxyGUI();
+				p.setVisible(true);
+				
+			}
+		});
+		btnProxies.setBounds(457, 370, 89, 23);
+		contentPane.add(btnProxies);
+		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -173,7 +187,7 @@ public class MainGUI extends JFrame {
 					return;
 				}
 				
-				if (running) {
+				if (AccountCreationThread.alive()) {
 					lblError.setText("Already running. Please wait for it to finish :)");
 					return;
 				}
