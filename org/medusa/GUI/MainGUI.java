@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.medusa.Main;
+import org.medusa.Utils.Logger;
 
 import com.anti_captcha.AccountCreationThread;
 
@@ -49,6 +50,7 @@ public class MainGUI extends JFrame {
 	public static boolean running = false;
 	
 	public static int runTimes = 0;
+	private JButton btnOpenLogger;
 	
 	/**
 	 * Create the frame.
@@ -134,14 +136,6 @@ public class MainGUI extends JFrame {
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 		
-		JLabel lblRememberToRun = new JLabel("Remember to start using cli");
-		lblRememberToRun.setBounds(276, 160, 258, 14);
-		contentPane.add(lblRememberToRun);
-		
-		JLabel lblJavajarPathtofilejar = new JLabel("java -jar path/to/file.jar");
-		lblJavajarPathtofilejar.setBounds(276, 185, 246, 14);
-		contentPane.add(lblJavajarPathtofilejar);
-		
 		JButton btnProxies = new JButton("Proxies");
 		btnProxies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,6 +159,16 @@ public class MainGUI extends JFrame {
 		});
 		btnCredits.setBounds(232, 367, 117, 29);
 		contentPane.add(btnCredits);
+		
+		btnOpenLogger = new JButton("Open Log");
+		btnOpenLogger.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LoggerGUI lg = new LoggerGUI();
+				lg.setVisible(true);
+			}
+		});
+		btnOpenLogger.setBounds(232, 333, 117, 23);
+		contentPane.add(btnOpenLogger);
 		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -200,6 +204,7 @@ public class MainGUI extends JFrame {
 				}
 				
 				if (AccountCreationThread.alive()) {
+					Logger.log(AccountCreationThread.getThreads() - 2 + " thread(s) left until we can start again!");
 					lblError.setText("Already running. Please wait for it to finish :)");
 					return;
 				}
@@ -226,7 +231,7 @@ public class MainGUI extends JFrame {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					 System.out.println("Account thread started (" + i + ")");
+					 Logger.log("Account thread started (" + i + ")");
 					 (new AccountCreationThread()).start();
 		         }
 				lblError.setText("Account file: " + Main.logFile + " - Run times: " + runTimes);

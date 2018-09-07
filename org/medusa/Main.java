@@ -18,8 +18,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
+import org.medusa.GUI.LoggerGUI;
 import org.medusa.GUI.MainGUI;
 import org.medusa.GUI.NotificationGUI;
+import org.medusa.Utils.Logger;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -34,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.swing.JTextArea;
 
 public class Main {
 
@@ -58,14 +62,16 @@ public class Main {
     public static File logFile = new File(timeLog + randomAlphaNumeric(2) + ".txt");
 	
     public static void main(String[] args) throws InterruptedException, MalformedURLException, JSONException {
-    	System.out.println("Welcome to Medusa's Account Creator (v" + version + "-" + v + ")");
-    	System.out.println("Please note that this might not work 100% of the time");
     	MainGUI gui = new MainGUI();
     	gui.setVisible(true);
+    	LoggerGUI lg = new LoggerGUI();
+    	lg.setVisible(true);
+    	Logger.log("Welcome to Medusa's Account Creator (v" + Main.version + "-" + Main.v + ")");
+    	Logger.log("Please note that this might not work 100% of the time");
     }
 
     public static void createAccount(String ip, int port) throws MalformedURLException, InterruptedException {
-    	System.out.println("Waiting for captcha code... This might take a while...");
+    	Logger.log("Waiting for captcha code... This might take a while...");
         DebugHelper.setVerboseMode(false);
         NoCaptchaProxyless api = new NoCaptchaProxyless();
         api.setClientKey(antiCaptchaKey);
@@ -73,10 +79,10 @@ public class Main {
         api.setWebsiteKey("6LccFA0TAAAAAHEwUJx_c1TfTBWMTAOIphwTtd1b");
         
         if (!api.createTask()) {
-        	System.out.println(api.getErrorMessage());
+        	Logger.log(api.getErrorMessage());
         } else if (!api.waitForResult()) {
-        	System.out.println("-----------------------");
-            System.out.println("Failed to solve captcha");
+        	Logger.log("-----------------------");
+            Logger.log("Failed to solve captcha");
 	        completeNumber++;
         } else {
         	currentProgressive++;
@@ -130,23 +136,23 @@ public class Main {
 
 	        completeNumber++;
     	    try {
-            	System.out.println("-----------------------");
-            	System.out.println(email + ":" + password + ":" + username);
+            	Logger.log("-----------------------");
+            	Logger.log(email + ":" + password + ":" + username);
     	        if (getResponseString.contains("Account Created") || getResponseString.length() < 2){
     	        currentNumber++;
-    	        System.out.println(currentNumber + "/" + accountsWanted + " accounts made.");
+    	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
     	        writeFile(email + ":" + password + ":" + username);
     	        
     	        if (completeNumber >= accountsWanted) {
-                	System.out.println("-----------------------");
-    	        	System.out.println("Task done");
-    	        	NotificationGUI gui = new NotificationGUI("complete");
+                	Logger.log("-----------------------");
+    	        	Logger.log("Task done");
+    	        	NotificationGUI gui = new NotificationGUI("complete", "Done");
     	        	gui.setAlwaysOnTop(true);
     	        	gui.setVisible(true);
     	        	completeNumber = 0;
     	        }
     	        } else {
-    	        System.out.println("Creation failed...");
+    	        Logger.log("Creation failed...");
     	        }
     	    } finally {
     	        instream.close();
@@ -201,23 +207,23 @@ public class Main {
 
 	        completeNumber++;
     	    try {
-            	System.out.println("-----------------------");
-            	System.out.println(email + ":" + password + ":" + username + "(Proxy: " + ip + ":" + port + ")");
+            	Logger.log("-----------------------");
+            	Logger.log(email + ":" + password + ":" + username + "(Proxy: " + ip + ":" + port + ")");
     	        if (getResponseString.contains("Account Created") || getResponseString.length() < 2){
     	        currentNumber++;
-    	        System.out.println(currentNumber + "/" + accountsWanted + " accounts made.");
+    	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
     	        writeFile(email + ":" + password + ":" + username);
     	        
     	        if (completeNumber >= accountsWanted) {
-                	System.out.println("-----------------------");
-    	        	System.out.println("Task done");
-    	        	NotificationGUI gui = new NotificationGUI("complete");
+                	Logger.log("-----------------------");
+    	        	Logger.log("Task done");
+    	        	NotificationGUI gui = new NotificationGUI("complete", "Done");
     	        	gui.setAlwaysOnTop(true);
     	        	gui.setVisible(true);
     	        	completeNumber = 0;
     	        }
     	        } else {
-    	        System.out.println("Creation failed...");
+    	        Logger.log("Creation failed...");
     	        }
     	    } finally {
     	        instream.close();
@@ -225,11 +231,11 @@ public class Main {
     	}
     	} catch (IOException e) {
 	        completeNumber++;
-    		System.out.println("Failed to connect to proxy");
+    		Logger.log("Failed to connect to proxy");
     		if (completeNumber >= accountsWanted) {
-            	System.out.println("-----------------------");
-	        	System.out.println("Task done");
-	        	NotificationGUI gui = new NotificationGUI("complete");
+            	Logger.log("-----------------------");
+	        	Logger.log("Task done");
+	        	NotificationGUI gui = new NotificationGUI("complete", "Done");
 	        	gui.setAlwaysOnTop(true);
 	        	gui.setVisible(true);
 	        	completeNumber = 0;
@@ -275,7 +281,7 @@ public class Main {
         } else {
         try {
 
-            System.out.println(logFile.getCanonicalPath());
+            Logger.log(logFile.getCanonicalPath());
 
             writer = new BufferedWriter(new FileWriter(logFile));
             writer.write(account + "\r\n");

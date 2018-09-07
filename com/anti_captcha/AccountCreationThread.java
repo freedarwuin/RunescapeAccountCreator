@@ -49,4 +49,8 @@ public class AccountCreationThread extends Thread {
 		return activeCount() != 2;
 	}
 	
+	public static int getThreads() {
+		return activeCount();
+	}
+	
 }

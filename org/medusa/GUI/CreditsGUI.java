@@ -43,7 +43,7 @@ public class CreditsGUI extends JFrame {
 	public CreditsGUI() {
 		setTitle("Credits");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 411, 209);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,6 +91,19 @@ public class CreditsGUI extends JFrame {
 		});
 		btnGithub.setBounds(264, 80, 117, 29);
 		contentPane.add(btnGithub);
+		
+		JButton btnJoinMyDiscord = new JButton("Join my Discord");
+		btnJoinMyDiscord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					openWebsite(new URL("https://osbot.medusa.icu/?analytics=acdiscord"));
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnJoinMyDiscord.setBounds(244, 19, 137, 23);
+		contentPane.add(btnJoinMyDiscord);
 	}
 	
 	public void openWebsite(URL url) {
