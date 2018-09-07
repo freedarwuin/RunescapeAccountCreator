@@ -6,9 +6,9 @@ Official thread link: https://osbot.org/forum/topic/146443-account-creator-very-
 Dependencies are in the "libs" folder. These are necessary for the jar to be compiled. This uses https://anti-captcha.com to solve captchas. Please register an account to get an API key.
 
 ## How to use?
-In order to properly use the script, you'll have to run it through a command line.
-To do this, open a cmd/terminal window, and type ```java -jar /path/to/file.jar```
-After this, you can start making accounts.
+Double click the .jar file you can download from the release section (Or build it yourself).
+Logger is now included in the program, but if you want to be 100% sure to receive logs, please run the program from the command line.
+To do this, open cmd/terminal, and type ```java -jar path/to/file.jar```. Program will log to the newest logger instance.
 
 # Not the best creator ever, but it works most of the time
 # I'm not responsible if you "waste" all your anti-captcha credits on this
