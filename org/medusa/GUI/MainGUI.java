@@ -154,6 +154,18 @@ public class MainGUI extends JFrame {
 		btnProxies.setBounds(457, 370, 89, 23);
 		contentPane.add(btnProxies);
 		
+		JButton btnCredits = new JButton("Credits");
+		btnCredits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				CreditsGUI cg = new CreditsGUI();
+				cg.setVisible(true);
+				
+			}
+		});
+		btnCredits.setBounds(232, 367, 117, 29);
+		contentPane.add(btnCredits);
+		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
