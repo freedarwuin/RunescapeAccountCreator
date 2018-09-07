@@ -224,14 +224,12 @@ public class MainGUI extends JFrame {
 				Main.accountsCreated = 0;
 				
 				running = true;
-				
 				for(int i=0; i<Main.accountsWanted; i++){
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					 Logger.log("Account thread started (" + i + ")");
 					 (new AccountCreationThread()).start();
 		         }
 				lblError.setText("Account file: " + Main.logFile + " - Run times: " + runTimes);

@@ -153,6 +153,14 @@ public class Main {
     	        }
     	        } else {
     	        Logger.log("Creation failed...");
+    	        if (completeNumber >= accountsWanted) {
+                	Logger.log("-----------------------");
+    	        	Logger.log("Task done");
+    	        	NotificationGUI gui = new NotificationGUI("complete", "Done");
+    	        	gui.setAlwaysOnTop(true);
+    	        	gui.setVisible(true);
+    	        	completeNumber = 0;
+    	        }
     	        }
     	    } finally {
     	        instream.close();

@@ -5,21 +5,17 @@ import java.util.Random;
 
 import org.medusa.Main;
 import org.medusa.Utils.LoadProxies;
+import org.medusa.Utils.Logger;
 
 public class AccountCreationThread extends Thread {
 
 	@Override
 	public void run() {
+		 Logger.log("Account thread started");
 		if (Main.proxies) {
 			Random r = new Random();
 			if (LoadProxies.proxies == null) {
-				try {
-					Main.createAccount("0", 0);
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				Logger.log("No proxies loaded. Can't start thread.");
 			} else {
 			int idx = r.nextInt(LoadProxies.proxies.length);
 			String proxy = LoadProxies.proxies[idx];
