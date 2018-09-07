@@ -57,7 +57,7 @@ public class CreditsGUI extends JFrame {
 		btnTwitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					openWebsite(new URL("ttps://osbot.medusa.icu/?analytics=actwitter"));
+					openWebsite(new URL("https://osbot.medusa.icu/?analytics=actwitter"));
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				}
