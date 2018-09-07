@@ -54,14 +54,14 @@ public class ProxyGUI extends JFrame {
 	public ProxyGUI() {
 		setTitle("Proxies");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 333);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 434, 261);
+		tabbedPane.setBounds(0, 0, 434, 305);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();
@@ -89,7 +89,7 @@ public class ProxyGUI extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(0, 208, 429, 31);
+		btnNewButton.setBounds(0, 208, 407, 31);
 		panel_1.add(btnNewButton);
 		
 		textArea = new JTextArea();
