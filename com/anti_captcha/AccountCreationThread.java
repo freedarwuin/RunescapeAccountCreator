@@ -9,6 +9,10 @@ import org.medusa.Utils.Logger;
 
 public class AccountCreationThread extends Thread {
 
+	/**
+	 * Messy code. Made it "late at night". It works, so not sure it'll be optimized anytime soon.
+	 */
+	
 	@Override
 	public void run() {
 		 Logger.log("Account thread started");
@@ -41,10 +45,12 @@ public class AccountCreationThread extends Thread {
 		}
 	}
 	
+	//Checks if creation threads are running
 	public static boolean alive() {
 		return activeCount() != 2;
 	}
 	
+	//Gets amount of active threads
 	public static int getThreads() {
 		return activeCount();
 	}

@@ -16,6 +16,7 @@ static JFileChooser filec = new JFileChooser();
 	public static String[] proxies;
 	public static String content;
 
+	//Load proxies from .txt
 	public static void loadProxyFile() throws FileNotFoundException {
 		filec.setDialogTitle("Choose proxy .txt");
 		if (filec.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {

@@ -41,15 +41,19 @@ import javax.swing.JTextArea;
 
 public class Main {
 
+	//Strings which will contain account information 
 	public static String emailDomain = "";
 	public static String emailPrefix = "";
 	public static String passwd = "";
 	
+	//Program version
 	public static double version = 0.2;
 	public static String v = "Alpha";
 	
+	//Proxy setting(s)
 	public static boolean proxies = false;
 	
+	//Creation statistics and stuff
 	public static int currentProgressive = 0;
 	public static int currentNumber = 0;
 	public static int accountsWanted = 1;
@@ -58,18 +62,26 @@ public class Main {
 	public static int accountsCreated = 0;
 	public static int completeNumber = 0;
 	
+	//File Location/Name
 	static String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     public static File logFile = new File(timeLog + randomAlphaNumeric(2) + ".txt");
 	
     public static void main(String[] args) throws InterruptedException, MalformedURLException, JSONException {
+    	//Initializes Main Gui
     	MainGUI gui = new MainGUI();
     	gui.setVisible(true);
+    	
+    	//Initializes Logger Gui
     	LoggerGUI lg = new LoggerGUI();
     	lg.setVisible(true);
+    	
+    	//Prints text to logger
     	Logger.log("Welcome to Medusa's Account Creator (v" + Main.version + "-" + Main.v + ")");
     	Logger.log("Please note that this might not work 100% of the time");
     }
 
+    
+    //Make request to solve captcha. If solved proceed to account creation.
     public static void createAccount(String ip, int port) throws MalformedURLException, InterruptedException {
     	Logger.log("Waiting for captcha code... This might take a while...");
         DebugHelper.setVerboseMode(false);
@@ -94,6 +106,7 @@ public class Main {
         }
     }
     
+    //Create Account without proxy
     public static void createPost(String string) {
 		HttpClient httpclient = HttpClients.createDefault();
     	try {
@@ -171,6 +184,7 @@ public class Main {
     	}
     }
     
+    //Create account with proxy
     public static void createProxyPost(String gresponse, String ip, int port) {
     	try {
     		HttpHost proxy = new HttpHost(ip, port);
@@ -204,9 +218,9 @@ public class Main {
     	httppost.setHeader("Accept-Language", "en-US,en);q=0.5");
     	httppost.setHeader("Accept-Encoding", "gzip, deflate, br");
     	httppost.setHeader("Referer", "http://oldschool.runescape.com/");
-    	
-    	try {
+
     	//Execute and get the response.
+    	try {
         HttpResponse response = httpclient2.execute(httppost);
     	HttpEntity entity = response.getEntity();
     	if (entity != null) {
@@ -254,7 +268,7 @@ public class Main {
     	}
     }
     
-    
+    //Reader
     static String readStream(InputStream stream) throws IOException {
         try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[1024];
@@ -266,6 +280,7 @@ public class Main {
         }
     }
 
+    //Random alphanum String
 	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		public static String randomAlphaNumeric(int count) {
 			StringBuilder builder = new StringBuilder();
@@ -276,6 +291,8 @@ public class Main {
 			return builder.toString();
 	}
 
+		
+	//Creates/Writes to account file
 	public static void writeFile(String account) {
 		BufferedWriter writer = null;
         if (logFile.exists()) {
