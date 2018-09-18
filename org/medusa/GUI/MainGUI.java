@@ -16,9 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class MainGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField txtGmailcom;
@@ -58,6 +60,7 @@ public class MainGUI extends JFrame {
 	public MainGUI() {
 		setTitle("Medusa's Account Creator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 572, 443);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -140,8 +143,13 @@ public class MainGUI extends JFrame {
 		btnProxies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+			if (!Main.st.proxy) {
+				Main.st.proxy = true;
 				ProxyGUI p = new ProxyGUI();
 				p.setVisible(true);
+			} else {
+				Logger.log("Proxy settings already open!");
+			}
 				
 			}
 		});
@@ -152,9 +160,13 @@ public class MainGUI extends JFrame {
 		btnCredits.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+			if (!Main.st.credits) {
+				Main.st.credits = true;
 				CreditsGUI cg = new CreditsGUI();
 				cg.setVisible(true);
-				
+			} else {
+				Logger.log("Credits window is already open!");
+			}
 			}
 		});
 		btnCredits.setBounds(232, 367, 117, 29);
@@ -163,12 +175,31 @@ public class MainGUI extends JFrame {
 		btnOpenLogger = new JButton("Open Log");
 		btnOpenLogger.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LoggerGUI lg = new LoggerGUI();
-				lg.setVisible(true);
+				if (!Main.st.logger) {
+					Main.st.logger = true;
+					LoggerGUI lg = new LoggerGUI();
+					lg.setVisible(true);
+				} else {
+					Logger.log("A Logger is already open!");
+				}
 			}
 		});
 		btnOpenLogger.setBounds(232, 333, 117, 23);
 		contentPane.add(btnOpenLogger);
+		
+		JCheckBox chckbxSleepBetweenThread = new JCheckBox("Sleep between thread starts");
+		chckbxSleepBetweenThread.setBounds(10, 156, 343, 23);
+		chckbxSleepBetweenThread.setSelected(true);
+		contentPane.add(chckbxSleepBetweenThread);
+		
+		chckbxSleepBetweenThread.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.st.threadSleep = chckbxSleepBetweenThread.isSelected();
+				Logger.log("Thread sleeping: " + Main.st.threadSleep);
+			}
+		});
 		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -203,11 +234,18 @@ public class MainGUI extends JFrame {
 					return;
 				}
 				
+				if (Main.st.proxy) {
+					lblError.setText("You haven't saved your proxy settings!");
+					return;
+				}
+				
 				if (AccountCreationThread.alive()) {
 					Logger.log(AccountCreationThread.getThreads() - 2 + " thread(s) left until we can start again!");
 					lblError.setText("Already running. Please wait for it to finish :)");
 					return;
 				}
+				
+				Logger.log("Threads starting. Program will freeze");
 				
 				runTimes++;
 				
@@ -225,10 +263,12 @@ public class MainGUI extends JFrame {
 				
 				running = true;
 				for(int i=0; i<Main.accountsWanted; i++){
+					if (Main.st.threadSleep) {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}
 					}
 					 (new AccountCreationThread()).start();
 		         }

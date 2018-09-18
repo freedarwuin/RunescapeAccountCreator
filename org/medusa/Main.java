@@ -1,6 +1,5 @@
 package org.medusa;
 
-import com.anti_captcha.AccountCreationThread;
 import com.anti_captcha.Api.NoCaptchaProxyless;
 import com.anti_captcha.Helper.DebugHelper;
 
@@ -12,7 +11,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
@@ -22,6 +20,7 @@ import org.medusa.GUI.LoggerGUI;
 import org.medusa.GUI.MainGUI;
 import org.medusa.GUI.NotificationGUI;
 import org.medusa.Utils.Logger;
+import org.medusa.Utils.SessionStorage;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -37,8 +36,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.JTextArea;
-
 public class Main {
 
 	//Strings which will contain account information 
@@ -47,7 +44,7 @@ public class Main {
 	public static String passwd = "";
 	
 	//Program version
-	public static double version = 0.2;
+	public static double version = 0.4;
 	public static String v = "Alpha";
 	
 	//Proxy setting(s)
@@ -62,6 +59,9 @@ public class Main {
 	public static int accountsCreated = 0;
 	public static int completeNumber = 0;
 	
+	//Session Stuff
+	public static SessionStorage st = new SessionStorage();
+	
 	//File Location/Name
 	static String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     public static File logFile = new File(timeLog + randomAlphaNumeric(2) + ".txt");
@@ -73,6 +73,7 @@ public class Main {
     	
     	//Initializes Logger Gui
     	LoggerGUI lg = new LoggerGUI();
+    	st.logger = true;
     	lg.setVisible(true);
     	
     	//Prints text to logger

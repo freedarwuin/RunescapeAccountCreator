@@ -1,6 +1,5 @@
 package org.medusa.Utils;
 
-import org.medusa.Main;
 import org.medusa.GUI.LoggerGUI;
 
 public class Logger {

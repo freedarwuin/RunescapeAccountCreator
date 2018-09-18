@@ -23,7 +23,7 @@ static JFileChooser filec = new JFileChooser();
 			File file = filec.getSelectedFile();
 			Scanner input = new Scanner(file);
 			if (!file.getName().endsWith(".txt")) {
-				System.out.println("Not a .txt file");
+				Logger.log("(Proxies) Not a .txt file");
 				input.close();
 				return;
 			}
@@ -38,8 +38,10 @@ static JFileChooser filec = new JFileChooser();
 			proxies = split.split("\n");
 			content = split;
 			ProxyGUI.textArea.setText(split);
+			input.close();
+			Logger.log("(Proxies) added proxies");
 		} else {
-			System.out.println("No file was selected");
+			Logger.log("(Proxies) No file was selected");
 		}
 	}
 	

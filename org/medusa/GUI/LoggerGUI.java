@@ -1,13 +1,12 @@
 package org.medusa.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultCaret;
 
 import org.medusa.Main;
 
@@ -20,7 +19,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class LoggerGUI extends JFrame {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JTextArea textArea;
 	
@@ -45,12 +45,12 @@ public class LoggerGUI extends JFrame {
 	 */
 	public LoggerGUI() {
 		setTitle("Log");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		textArea = new JTextArea();
 		textArea.setBounds(0, 0, 434, 261);
@@ -73,5 +73,18 @@ public class LoggerGUI extends JFrame {
 		JLabel lblClosingThisWindow = new JLabel("Closing this window will remove all content logged");
 		lblClosingThisWindow.setBounds(127, 223, 301, 14);
 		contentPane.add(lblClosingThisWindow);
+		
+		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		
+		addWindowListener(new WindowAdapter() {
+			
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	Main.st.logger = false;
+		    	e.getWindow().setVisible(false);
+		    	e.getWindow().dispose();
+		    }
+		});
 	}
 }

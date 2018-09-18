@@ -1,34 +1,29 @@
 package org.medusa.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import org.medusa.Main;
 import org.medusa.Utils.LoadProxies;
-
-import com.anti_captcha.AccountCreationThread;
+import org.medusa.Utils.Logger;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JScrollBar;
-import javax.swing.JList;
-import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ProxyGUI extends JFrame {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JTextArea textArea;
 
@@ -54,6 +49,7 @@ public class ProxyGUI extends JFrame {
 	public ProxyGUI() {
 		setTitle("Proxies");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 450, 333);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,7 +85,7 @@ public class ProxyGUI extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(0, 208, 407, 31);
+		btnNewButton.setBounds(0, 208, 428, 31);
 		panel_1.add(btnNewButton);
 		
 		textArea = new JTextArea();
@@ -103,11 +99,16 @@ public class ProxyGUI extends JFrame {
 		panel_1.add(sp);
 		
 		
-		this.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e){
-                System.out.println("Saving proxy settings");
-                Main.proxies = chckbxEnableProxies.isSelected();
-            }
-        });
+		addWindowListener(new WindowAdapter() {
+			
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	 Main.st.proxy = false;
+		    	 Logger.log("Saving proxy settings");
+	             Main.proxies = chckbxEnableProxies.isSelected();
+		    	 e.getWindow().setVisible(false);
+		    	 e.getWindow().dispose();
+		    }
+		});
 	}
 }

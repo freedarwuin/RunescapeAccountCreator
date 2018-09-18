@@ -1,24 +1,28 @@
 package org.medusa.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.medusa.Main;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 
 public class CreditsGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -104,6 +108,16 @@ public class CreditsGUI extends JFrame {
 		});
 		btnJoinMyDiscord.setBounds(244, 19, 137, 23);
 		contentPane.add(btnJoinMyDiscord);
+		
+		addWindowListener(new WindowAdapter() {
+			
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	Main.st.credits = false;
+		    	e.getWindow().setVisible(false);
+		    	e.getWindow().dispose();
+		    }
+		});
 	}
 	
 	public void openWebsite(URL url) {

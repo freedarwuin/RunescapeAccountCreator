@@ -1,6 +1,5 @@
 package org.medusa.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class NotificationGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -40,6 +40,7 @@ public class NotificationGUI extends JFrame {
 	public NotificationGUI(String type, String title) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 294, 201);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
