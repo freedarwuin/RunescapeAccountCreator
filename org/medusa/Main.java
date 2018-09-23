@@ -97,6 +97,14 @@ public class Main {
         	Logger.log("-----------------------");
             Logger.log("Failed to solve captcha");
 	        completeNumber++;
+	        if (completeNumber >= accountsWanted) {
+            	Logger.log("-----------------------");
+	        	Logger.log("Task done");
+	        	NotificationGUI gui = new NotificationGUI("complete", "Done");
+	        	gui.setAlwaysOnTop(true);
+	        	gui.setVisible(true);
+	        	completeNumber = 0;
+	        }
         } else {
         	currentProgressive++;
         	if (proxies) {
