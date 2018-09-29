@@ -9,8 +9,7 @@ import org.medusa.Utils.Logger;
 public class ScriptLaunch {
 
 	/**
-	 * 
-	
+	 * Manages OSBot Script Launching - Only windows atm
 	 */
 	
 	public static void launchScript(String scriptIDName, String osbotUser, String osbotPassword, String accountLogin, String accountPassword) {
@@ -18,7 +17,6 @@ public class ScriptLaunch {
 			return;
 		}
 		String cmd = "cmd.exe /c start java -jar " + GetOSBot.getPath() + " -login " + osbotUser + ":" + osbotPassword + " -bot " + accountLogin + ":" + accountPassword + ":1234 -script " + scriptIDName + ":" + Main.st.getScriptParams();
-		System.out.println(cmd);
 		Runtime run = Runtime.getRuntime();
 		try {
 			run.exec(cmd);
@@ -36,7 +34,6 @@ public class ScriptLaunch {
 			return;
 		}
 		String cmd = "cmd.exe /c start java -jar " + GetOSBot.getPath() + " -proxy " + ip + ":" + port + " -login " + osbotUser + ":" + osbotPassword + " -bot " + accountLogin + ":" + accountPassword + ":1234 -script " + scriptIDName + ":" + Main.st.getScriptParams();
-		System.out.println(cmd);
 		Runtime run = Runtime.getRuntime();
 		try {
 			run.exec(cmd);
