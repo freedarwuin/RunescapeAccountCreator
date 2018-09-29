@@ -2,6 +2,7 @@ package org.medusa.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -44,5 +45,12 @@ static JFileChooser filec = new JFileChooser();
 			Logger.log("(Proxies) No file was selected");
 		}
 	}
+	
+	public static String getProxy() {
+		
+		Random r = new Random();
+		int idx = r.nextInt(LoadProxies.proxies.length);
+		return LoadProxies.proxies[idx];
+  }
 	
 }

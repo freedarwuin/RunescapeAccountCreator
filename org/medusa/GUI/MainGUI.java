@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.medusa.Main;
 import org.medusa.Utils.Logger;
+import org.medusa.Utils.SessionStorage;
 
 import com.anti_captcha.AccountCreationThread;
 
@@ -102,7 +103,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblExampleEmailPrefixintervaldomaintld);
 		
 		JButton btnStart = new JButton("Start!");
-		btnStart.setBounds(10, 314, 160, 60);
+		btnStart.setBounds(10, 333, 160, 60);
 		contentPane.add(btnStart);
 		
 		JLabel lblAnticaptchacomKey = new JLabel("Anti-Captcha.com Key");
@@ -153,7 +154,7 @@ public class MainGUI extends JFrame {
 				
 			}
 		});
-		btnProxies.setBounds(457, 370, 89, 23);
+		btnProxies.setBounds(438, 370, 108, 23);
 		contentPane.add(btnProxies);
 		
 		JButton btnCredits = new JButton("Credits");
@@ -191,6 +192,26 @@ public class MainGUI extends JFrame {
 		chckbxSleepBetweenThread.setBounds(10, 156, 343, 23);
 		chckbxSleepBetweenThread.setSelected(true);
 		contentPane.add(chckbxSleepBetweenThread);
+		
+		JButton btnAdvanced = new JButton("Advanced");
+		btnAdvanced.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String os = System.getProperty("os.name");
+				if (!os.startsWith("Windows")) {
+					Logger.log("This feature is only available on Windows! You're using " + os);
+					return;
+				}
+				if (!Main.st.advanced) {
+					Main.st.advanced = true;
+					AdvancedGUI ag = new AdvancedGUI();
+					ag.setVisible(true);
+				} else {
+					Logger.log("Advanced Settings is already open!");
+				}
+			}
+		});
+		btnAdvanced.setBounds(438, 333, 108, 23);
+		contentPane.add(btnAdvanced);
 		
 		chckbxSleepBetweenThread.addActionListener(new ActionListener() {
 			
@@ -245,7 +266,15 @@ public class MainGUI extends JFrame {
 					return;
 				}
 				
+				if (!Main.st.logger) {
+					LoggerGUI lg = new LoggerGUI();
+					lg.setVisible(true);
+					Main.st.logger = true;
+				}
+				
+				if (Main.st.threadSleep) {
 				Logger.log("Threads starting. Program will freeze");
+				}
 				
 				runTimes++;
 				

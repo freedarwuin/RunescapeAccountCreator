@@ -21,8 +21,7 @@ public class AccountCreationThread extends Thread {
 			if (LoadProxies.proxies == null) {
 				Logger.log("No proxies loaded. Can't start thread.");
 			} else {
-			int idx = r.nextInt(LoadProxies.proxies.length);
-			String proxy = LoadProxies.proxies[idx];
+			String proxy = LoadProxies.getProxy();
 			String[] split = proxy.split(":");
 			try {
 				Main.createAccount(split[0], Integer.parseInt(split[1]));

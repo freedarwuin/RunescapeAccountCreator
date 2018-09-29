@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.medusa.GUI.LoggerGUI;
 import org.medusa.GUI.MainGUI;
 import org.medusa.GUI.NotificationGUI;
+import org.medusa.OSBot.ScriptLaunch;
 import org.medusa.Utils.Logger;
 import org.medusa.Utils.SessionStorage;
 
@@ -44,7 +45,7 @@ public class Main {
 	public static String passwd = "";
 	
 	//Program version
-	public static double version = 0.4;
+	public static double version = 0.51;
 	public static String v = "Alpha";
 	
 	//Proxy setting(s)
@@ -164,7 +165,7 @@ public class Main {
     	        currentNumber++;
     	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
     	        writeFile(email + ":" + password + ":" + username);
-    	        
+    	        ScriptLaunch.launchScript(st.scriptNameID, st.osbotUsername, st.osbotPassword, email, password);
     	        if (completeNumber >= accountsWanted) {
                 	Logger.log("-----------------------");
     	        	Logger.log("Task done");
@@ -244,7 +245,7 @@ public class Main {
     	        currentNumber++;
     	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
     	        writeFile(email + ":" + password + ":" + username);
-    	        
+    	        ScriptLaunch.launchScriptProxy(st.scriptNameID, st.osbotUsername, st.osbotPassword, email, password, ip, port);
     	        if (completeNumber >= accountsWanted) {
                 	Logger.log("-----------------------");
     	        	Logger.log("Task done");
