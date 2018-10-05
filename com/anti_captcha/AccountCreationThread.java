@@ -17,7 +17,6 @@ public class AccountCreationThread extends Thread {
 	public void run() {
 		 Logger.log("Account thread started");
 		if (Main.proxies) {
-			Random r = new Random();
 			if (LoadProxies.proxies == null) {
 				Logger.log("No proxies loaded. Can't start thread.");
 			} else {
