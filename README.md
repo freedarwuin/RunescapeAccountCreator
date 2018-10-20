@@ -1,9 +1,9 @@
 ## RunescapeAccountCreator
 Simple RuneScape Account Creator.
-Official thread link: https://osbot.medusa.icu?analytics=acthread
+Official thread link: https://osbot.org/forum/topic/146443-account-creator-alpha/
 
 ## Dependencies
-Dependencies are in the "libs" folder. These are necessary for the jar to be compiled. This uses Anti-Captcha (https://osbot.medusa.icu/?analytics=anticaptcha) to solve captchas. Please register an account to get an API key.
+Dependencies are in the "libs" folder. These are necessary for the jar to be compiled. This uses Anti-Captcha (http://getcaptchasolution.com/espcjise9v) to solve captchas. Please register an account to get an API key.
 
 ## How to use?
 Double click the .jar file you can download from the release section (Or build it yourself).
