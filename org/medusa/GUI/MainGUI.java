@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.medusa.Main;
 import org.medusa.Utils.Logger;
-import org.medusa.Utils.SessionStorage;
 
 import com.anti_captcha.AccountCreationThread;
 
@@ -154,7 +153,7 @@ public class MainGUI extends JFrame {
 				
 			}
 		});
-		btnProxies.setBounds(438, 370, 108, 23);
+		btnProxies.setBounds(438, 333, 108, 23);
 		contentPane.add(btnProxies);
 		
 		JButton btnCredits = new JButton("Credits");
@@ -210,17 +209,33 @@ public class MainGUI extends JFrame {
 				}
 			}
 		});
-		btnAdvanced.setBounds(438, 333, 108, 23);
+		btnAdvanced.setBounds(438, 370, 108, 23);
 		contentPane.add(btnAdvanced);
 		
 		chckbxSleepBetweenThread.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Main.st.threadSleep = chckbxSleepBetweenThread.isSelected();
 				Logger.log("Thread sleeping: " + Main.st.threadSleep);
 			}
 		});
+		
+		JButton btnUsernames = new JButton("Usernames");
+		btnUsernames.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (!Main.st.username) {
+					Main.st.username = true;
+					CustomNameGUI u = new CustomNameGUI();
+					u.setVisible(true);
+				} else {
+					Logger.log("Username settings already open!");
+				}
+					
+				}
+		});
+		btnUsernames.setBounds(438, 307, 108, 23);
+		contentPane.add(btnUsernames);
 		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

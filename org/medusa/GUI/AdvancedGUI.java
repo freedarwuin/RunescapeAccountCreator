@@ -1,6 +1,6 @@
 package org.medusa.GUI;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
+@SuppressWarnings("serial")
 public class AdvancedGUI extends JFrame {
 
 	private JPanel contentPane;

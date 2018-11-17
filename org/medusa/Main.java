@@ -16,10 +16,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
+import org.medusa.GUI.CustomNameGUI;
 import org.medusa.GUI.LoggerGUI;
 import org.medusa.GUI.MainGUI;
 import org.medusa.GUI.NotificationGUI;
 import org.medusa.OSBot.ScriptLaunch;
+import org.medusa.Utils.LoadUsernames;
 import org.medusa.Utils.Logger;
 import org.medusa.Utils.SessionStorage;
 
@@ -34,8 +36,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -50,6 +55,10 @@ public class Main {
 	
 	//Proxy setting(s)
 	public static boolean proxies = false;
+	
+	//Custom name setting(s)
+	public static boolean customUN = false;
+	public static String username;
 	
 	//Creation statistics and stuff
 	public static int currentProgressive = 0;
@@ -125,7 +134,24 @@ public class Main {
 
     	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
     	String password = passwd;
-    	String username = randomAlphaNumeric(12);
+    	if (customUN) {
+    		String prefix = LoadUsernames.getPrefix();
+    		//Logger.log("prefix: " + prefix);
+
+    		String suffix = LoadUsernames.getSuffix();
+    		//Logger.log("suffix: " + suffix);
+
+    		int rndInt = 100 + new Random().nextInt(899);
+    		if ((prefix + suffix).length() <= 9)
+    			username = (prefix + suffix).substring(0, (prefix + suffix).length()) + rndInt;
+    		else
+    			username = (prefix + rndInt + suffix).substring(0, 12);
+    	} else {
+    		username = randomAlphaNumeric(12);
+    	}
+    	
+		Logger.log("username: " + username);
+
     	
     	// Request parameters and other properties.
     	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -205,7 +231,23 @@ public class Main {
 
         	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
         	String password = passwd;
-        	String username = randomAlphaNumeric(12);
+        	if (customUN) {
+        		String prefix = LoadUsernames.getPrefix();
+        		//Logger.log("prefix: " + prefix);
+        		
+        		String suffix = LoadUsernames.getSuffix();
+        		//Logger.log("suffix: " + suffix);
+        		
+        		int rndInt = 100 + new Random().nextInt(899);
+        		if ((prefix + suffix).length() <= 9)
+        			username = (prefix + suffix).substring(0, (prefix + suffix).length()) + rndInt;
+        		else
+        			username = (prefix + rndInt + suffix).substring(0, 12);   		
+        	} else {
+        		username = randomAlphaNumeric(12);
+        	}
+        	
+    		Logger.log("username: " + username);
         	
         	// Request parameters and other properties.
     	List<NameValuePair> params = new ArrayList<NameValuePair>(2);

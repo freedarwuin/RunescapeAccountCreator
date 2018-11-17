@@ -1,7 +1,6 @@
 package com.anti_captcha;
 
 import java.net.MalformedURLException;
-import java.util.Random;
 
 import org.medusa.Main;
 import org.medusa.Utils.LoadProxies;
