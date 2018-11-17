@@ -7,6 +7,7 @@ public class SessionStorage {
 	public boolean proxy = false;
 	public boolean credits = false;
 	public boolean advanced = false;
+	public boolean username = false;
 	
 	//Should we sleep between each thread start?
 	//Disabling this will make all account threads start at the same time, and spam logger (Faster than with sleep)
