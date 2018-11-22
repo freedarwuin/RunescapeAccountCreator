@@ -58,7 +58,6 @@ public class Main {
 	
 	//Custom name setting(s)
 	public static boolean customUN = false;
-	public static String username;
 	
 	//Creation statistics and stuff
 	public static int currentProgressive = 0;
@@ -134,6 +133,8 @@ public class Main {
 
     	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
     	String password = passwd;
+    	String username;
+    	 
     	if (customUN) {
     		String prefix = LoadUsernames.getPrefix();
     		//Logger.log("prefix: " + prefix);
@@ -231,6 +232,8 @@ public class Main {
 
         	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
         	String password = passwd;
+        	String username;
+        	
         	if (customUN) {
         		String prefix = LoadUsernames.getPrefix();
         		//Logger.log("prefix: " + prefix);
