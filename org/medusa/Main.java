@@ -131,42 +131,30 @@ public class Main {
     		
     	HttpPost httppost = new HttpPost("https://secure.runescape.com/m=account-creation/create_account");
 
-    	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
+    	String email = emailPrefix + currentProgressive + "@" + emailDomain;
     	String password = passwd;
-    	String username;
-    	 
-    	if (customUN) {
-    		String prefix = LoadUsernames.getPrefix();
-    		//Logger.log("prefix: " + prefix);
 
-    		String suffix = LoadUsernames.getSuffix();
-    		//Logger.log("suffix: " + suffix);
+	Random rand = new Random(); 
+	int day = (1 + rand.nextInt(29));
+	int month = (1 + rand.nextInt(11));
+	int year = (1965 + rand.nextInt(30));
 
-    		int rndInt = 100 + new Random().nextInt(899);
-    		if ((prefix + suffix).length() <= 9)
-    			username = (prefix + suffix).substring(0, (prefix + suffix).length()) + rndInt;
-    		else
-    			username = (prefix + rndInt + suffix).substring(0, 12);
-    	} else {
-    		username = randomAlphaNumeric(12);
-    	}
-    	
-		Logger.log("username: " + username);
-
-    	
-    	// Request parameters and other properties.
-    	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-    	params.add(new BasicNameValuePair("email1", email));
-    	params.add(new BasicNameValuePair("onlyOneEmail", "1"));
-    	params.add(new BasicNameValuePair("password1", password));
-    	params.add(new BasicNameValuePair("onlyOnePassword", "1"));
-    	params.add(new BasicNameValuePair("displayname", username));
-    	params.add(new BasicNameValuePair("day", "1"));
-    	params.add(new BasicNameValuePair("month", "2"));
-    	params.add(new BasicNameValuePair("year", "1999"));
-    	params.add(new BasicNameValuePair("g-recaptcha-response", string));
-    	params.add(new BasicNameValuePair("submit", "Play Now"));
-    	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	// Request parameters and other properties.
+	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+	params.add(new BasicNameValuePair("email1", email));
+	params.add(new BasicNameValuePair("onlyOneEmail", "1"));
+	params.add(new BasicNameValuePair("password1", password));
+	params.add(new BasicNameValuePair("onlyOnePassword", "1"));
+	params.add(new BasicNameValuePair("day", Integer.toString(day)));
+	System.out.println("Day: " + day);
+	params.add(new BasicNameValuePair("month", Integer.toString(month)));
+	System.out.println("Month: " + month);
+	params.add(new BasicNameValuePair("year", Integer.toString(year)));
+	System.out.println("Year: " + year);
+	params.add(new BasicNameValuePair("g-recaptcha-response", string));
+	params.add(new BasicNameValuePair("create-submit", "create"));
+	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	System.out.println("Key: " + antiCaptchaKey);
 
     	//Set headers
     	httppost.setHeader("Host", "secure.runescape.com");
@@ -187,11 +175,11 @@ public class Main {
 	        completeNumber++;
     	    try {
             	Logger.log("-----------------------");
-            	Logger.log(email + ":" + password + ":" + username);
+            	Logger.log(email + ":" + password);
     	        if (getResponseString.contains("Account Created") || getResponseString.length() < 2){
     	        currentNumber++;
     	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
-    	        writeFile(email + ":" + password + ":" + username);
+    	        writeFile(email + ":" + password);
     	        ScriptLaunch.launchScript(st.scriptNameID, st.osbotUsername, st.osbotPassword, email, password);
     	        if (completeNumber >= accountsWanted) {
                 	Logger.log("-----------------------");
@@ -232,39 +220,29 @@ public class Main {
 
         	String email = emailPrefix + "+" + currentProgressive + "@" + emailDomain;
         	String password = passwd;
-        	String username;
-        	
-        	if (customUN) {
-        		String prefix = LoadUsernames.getPrefix();
-        		//Logger.log("prefix: " + prefix);
-        		
-        		String suffix = LoadUsernames.getSuffix();
-        		//Logger.log("suffix: " + suffix);
-        		
-        		int rndInt = 100 + new Random().nextInt(899);
-        		if ((prefix + suffix).length() <= 9)
-        			username = (prefix + suffix).substring(0, (prefix + suffix).length()) + rndInt;
-        		else
-        			username = (prefix + rndInt + suffix).substring(0, 12);   		
-        	} else {
-        		username = randomAlphaNumeric(12);
-        	}
-        	
-    		Logger.log("username: " + username);
         	
         	// Request parameters and other properties.
-    	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-    	params.add(new BasicNameValuePair("email1", email));
-    	params.add(new BasicNameValuePair("onlyOneEmail", "1"));
-    	params.add(new BasicNameValuePair("password1", password));
-    	params.add(new BasicNameValuePair("onlyOnePassword", "1"));
-    	params.add(new BasicNameValuePair("displayname", username));
-    	params.add(new BasicNameValuePair("day", "1"));
-    	params.add(new BasicNameValuePair("month", "2"));
-    	params.add(new BasicNameValuePair("year", "1999"));
-    	params.add(new BasicNameValuePair("g-recaptcha-response", gresponse));
-    	params.add(new BasicNameValuePair("submit", "Play Now"));
-    	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	Random rand = new Random(); 
+	int day = (1 + rand.nextInt(29));
+	int month = (1 + rand.nextInt(11));
+	int year = (1965 + rand.nextInt(30));
+
+	// Request parameters and other properties.
+	List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+	params.add(new BasicNameValuePair("email1", email));
+	params.add(new BasicNameValuePair("onlyOneEmail", "1"));
+	params.add(new BasicNameValuePair("password1", password));
+	params.add(new BasicNameValuePair("onlyOnePassword", "1"));
+	params.add(new BasicNameValuePair("day", Integer.toString(day)));
+	System.out.println("Day: " + day);
+	params.add(new BasicNameValuePair("month", Integer.toString(month)));
+	System.out.println("Month: " + month);
+	params.add(new BasicNameValuePair("year", Integer.toString(year)));
+	System.out.println("Year: " + year);
+	params.add(new BasicNameValuePair("g-recaptcha-response", string));
+	params.add(new BasicNameValuePair("create-submit", "create"));
+	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	System.out.println("Key: " + antiCaptchaKey);
 
     	//Set headers
     	httppost.setHeader("Host", "secure.runescape.com");
@@ -285,11 +263,11 @@ public class Main {
 	        completeNumber++;
     	    try {
             	Logger.log("-----------------------");
-            	Logger.log(email + ":" + password + ":" + username + "(Proxy: " + ip + ":" + port + ")");
+            	Logger.log(email + ":" + password + ":" + "(Proxy: " + ip + ":" + port + ")");
     	        if (getResponseString.contains("Account Created") || getResponseString.length() < 2){
     	        currentNumber++;
     	        Logger.log(currentNumber + "/" + accountsWanted + " accounts made.");
-    	        writeFile(email + ":" + password + ":" + username);
+    	        writeFile(email + ":" + password);
     	        ScriptLaunch.launchScriptProxy(st.scriptNameID, st.osbotUsername, st.osbotPassword, email, password, ip, port);
     	        if (completeNumber >= accountsWanted) {
                 	Logger.log("-----------------------");
