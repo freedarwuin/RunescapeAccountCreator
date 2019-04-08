@@ -19,5 +19,4 @@ If the generated username is shorter than 9 characters, the numbers will be adde
 
 If the generated username is longer than 9 characters, the numbers will be added between the prefix and suffix and the final name will be trimmed to 12 characters.
 
-# Jagex changed their creation procedure, so the program is broken. If you've fixed it, please submit a PR so I can add the fixes to the official release :)
 # I'm not responsible if you "waste" all your anti-captcha credits on this
