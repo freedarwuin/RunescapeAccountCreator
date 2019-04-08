@@ -48,6 +48,13 @@ public class Main {
 	public static String emailDomain = "";
 	public static String emailPrefix = "";
 	public static String passwd = "";
+	
+
+	//Dates
+	static Random rand = new Random(); 
+	static int day = (1 + rand.nextInt(29));
+	static int month = (1 + rand.nextInt(11));
+	static int year = (1965 + rand.nextInt(30));
 
 	//Program version
 	public static double version = 0.51;
@@ -134,11 +141,6 @@ public class Main {
 			String email = emailPrefix + currentProgressive + "@" + emailDomain;
 			String password = passwd;
 
-			Random rand = new Random(); 
-			int day = (1 + rand.nextInt(29));
-			int month = (1 + rand.nextInt(11));
-			int year = (1965 + rand.nextInt(30));
-
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("email1", email));
@@ -220,12 +222,6 @@ public class Main {
 
 			String email = emailPrefix + currentProgressive + "@" + emailDomain;
 			String password = passwd;
-
-			// Request parameters and other properties.
-			Random rand = new Random(); 
-			int day = (1 + rand.nextInt(29));
-			int month = (1 + rand.nextInt(11));
-			int year = (1965 + rand.nextInt(30));
 
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
