@@ -98,7 +98,7 @@ public class Main {
         NoCaptchaProxyless api = new NoCaptchaProxyless();
         api.setClientKey(antiCaptchaKey);
         api.setWebsiteUrl(new URL("https://secure.runescape.com/m=account-creation/create_account"));
-        api.setWebsiteKey("6LccFA0TAAAAAHEwUJx_c1TfTBWMTAOIphwTtd1b");
+        api.setWebsiteKey("6Lcsv3oUAAAAAGFhlKrkRb029OHio098bbeyi_Hv");
         
         if (!api.createTask()) {
         	Logger.log(api.getErrorMessage());
