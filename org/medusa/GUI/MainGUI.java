@@ -220,23 +220,6 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
-		JButton btnUsernames = new JButton("Usernames");
-		btnUsernames.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (!Main.st.username) {
-					Main.st.username = true;
-					CustomNameGUI u = new CustomNameGUI();
-					u.setVisible(true);
-				} else {
-					Logger.log("Username settings already open!");
-				}
-					
-				}
-		});
-		btnUsernames.setBounds(438, 307, 108, 23);
-		contentPane.add(btnUsernames);
-		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
