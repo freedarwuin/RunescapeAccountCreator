@@ -50,7 +50,7 @@ public class Main {
 	public static String passwd = "";
 
 	//Program version
-	public static double version = 0.51;
+	public static double version = 0.6;
 	public static String v = "Alpha";
 
 	//Proxy setting(s)
