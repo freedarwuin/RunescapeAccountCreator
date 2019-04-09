@@ -65,6 +65,9 @@ public class Main {
 	public static String antiCaptchaKey = "";
 	public static int accountsCreated = 0;
 	public static int completeNumber = 0;
+	
+	//Site key
+	public static String siteKey = "6Lcsv3oUAAAAAGFhlKrkRb029OHio098bbeyi_Hv";
 
 	//Session Stuff
 	public static SessionStorage st = new SessionStorage();
@@ -96,7 +99,7 @@ public class Main {
 		NoCaptchaProxyless api = new NoCaptchaProxyless();
 		api.setClientKey(antiCaptchaKey);
 		api.setWebsiteUrl(new URL("https://secure.runescape.com/m=account-creation/create_account"));
-		api.setWebsiteKey("6Lcsv3oUAAAAAGFhlKrkRb029OHio098bbeyi_Hv");
+		api.setWebsiteKey(siteKey);
 
 		if (!api.createTask()) {
 			Logger.log(api.getErrorMessage());

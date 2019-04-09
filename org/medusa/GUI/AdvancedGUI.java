@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import org.medusa.Main;
 import org.medusa.Utils.GetOSBot;
 import org.medusa.Utils.Logger;
+import org.medusa.Utils.Utilities;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -29,6 +30,7 @@ public class AdvancedGUI extends JFrame {
 	private JTextField password;
 	private JTextField script;
 	private JTextField scriptParams;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -63,6 +65,9 @@ public class AdvancedGUI extends JFrame {
 		tabbedPane.setBounds(0, 0, 444, 271);
 		contentPane.add(tabbedPane);
 		
+
+		String os = Utilities.getOS();
+		if (os.startsWith("Windows")) {
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("OSBot Settings", null, panel, null);
 		panel.setLayout(null);
@@ -182,6 +187,37 @@ public class AdvancedGUI extends JFrame {
 		    	dispose();
 			}
 		});
+		} else {
+			Logger.log("You're not running a Windows OS, so some features could not be loaded.");
+		}
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Program Configuration", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JLabel lblCaptchaSiteKey = new JLabel("Captcha site key");
+		lblCaptchaSiteKey.setBounds(10, 11, 297, 14);
+		panel_2.add(lblCaptchaSiteKey);
+		
+		textField = new JTextField();
+		textField.setText(Main.siteKey);
+		textField.setBounds(10, 36, 419, 20);
+		panel_2.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Main.st.advanced = false;
+				Main.siteKey = textField.getText();
+				Logger.log("Updates site key: " + Main.siteKey);
+				dispose();
+			}
+		});
+		btnUpdate.setBounds(10, 209, 89, 23);
+		panel_2.add(btnUpdate);
+		
+		
 		
 		addWindowListener(new WindowAdapter() {
 			

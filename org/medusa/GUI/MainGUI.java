@@ -195,11 +195,6 @@ public class MainGUI extends JFrame {
 		JButton btnAdvanced = new JButton("Advanced");
 		btnAdvanced.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String os = System.getProperty("os.name");
-				if (!os.startsWith("Windows")) {
-					Logger.log("This feature is only available on Windows! You're using " + os);
-					return;
-				}
 				if (!Main.st.advanced) {
 					Main.st.advanced = true;
 					AdvancedGUI ag = new AdvancedGUI();

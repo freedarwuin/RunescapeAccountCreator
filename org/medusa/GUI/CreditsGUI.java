@@ -61,7 +61,7 @@ public class CreditsGUI extends JFrame {
 		btnTwitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					openWebsite(new URL("https://osbot.medusa.icu/?analytics=actwitter"));
+					openWebsite(new URL("https://twitter.com/discordapp_icu"));
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				}
@@ -74,7 +74,7 @@ public class CreditsGUI extends JFrame {
 		btnOsbot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					openWebsite(new URL("https://osbot.medusa.icu/?analytics=acosbot"));
+					openWebsite(new URL("https://osbot.org/forum/profile/267394-medusaa/"));
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				}
@@ -87,7 +87,7 @@ public class CreditsGUI extends JFrame {
 		btnGithub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					openWebsite(new URL("https://osbot.medusa.icu/?analytics=acgithub"));
+					openWebsite(new URL("https://www.github.com/MrMedusa"));
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				}
@@ -96,18 +96,18 @@ public class CreditsGUI extends JFrame {
 		btnGithub.setBounds(264, 80, 117, 29);
 		contentPane.add(btnGithub);
 		
-		JButton btnJoinMyDiscord = new JButton("Join my Discord");
-		btnJoinMyDiscord.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JButton btnContributors = new JButton("Contributors");
+		btnContributors.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				try {
-					openWebsite(new URL("https://osbot.medusa.icu/?analytics=acdiscord"));
-				} catch (MalformedURLException e1) {
-					e1.printStackTrace();
+					openWebsite(new URL("https://github.com/MrMedusa/RunescapeAccountCreator/graphs/contributors"));
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
 				}
 			}
 		});
-		btnJoinMyDiscord.setBounds(244, 19, 137, 23);
-		contentPane.add(btnJoinMyDiscord);
+		btnContributors.setBounds(135, 120, 117, 29);
+		contentPane.add(btnContributors);
 		
 		addWindowListener(new WindowAdapter() {
 			
