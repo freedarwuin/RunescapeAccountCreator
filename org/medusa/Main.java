@@ -87,14 +87,14 @@ public class Main {
 		lg.setVisible(true);
 
 		//Prints text to logger
-		Logger.log("Welcome to Medusa's Account Creator (v" + Main.version + "-" + Main.v + ")");
-		Logger.log("Please note that this might not work 100% of the time");
+		Logger.log("Bienvenido al Creador de cuentas de Medusa (v" + Main.version + "-" + Main.v + ")");
+		Logger.log("Tenga en cuenta que esto podría no funcionar el 100% del tiempo.");
 	}
 
 
 	//Make request to solve captcha. If solved proceed to account creation.
 	public static void createAccount(String ip, int port) throws MalformedURLException, InterruptedException {
-		Logger.log("Waiting for captcha code... This might take a while...");
+		Logger.log("Esperando el código captcha... Esto podría tardar un rato...");
 		DebugHelper.setVerboseMode(false);
 		NoCaptchaProxyless api = new NoCaptchaProxyless();
 		api.setClientKey(antiCaptchaKey);
@@ -105,11 +105,11 @@ public class Main {
 			Logger.log(api.getErrorMessage());
 		} else if (!api.waitForResult()) {
 			Logger.log("-----------------------");
-			Logger.log("Failed to solve captcha");
+			Logger.log("No se pudo resolver el captcha");
 			completeNumber++;
 			if (completeNumber >= accountsWanted) {
 				Logger.log("-----------------------");
-				Logger.log("Task done");
+				Logger.log("Tarea realizada");
 				NotificationGUI gui = new NotificationGUI("complete", "Done");
 				gui.setAlwaysOnTop(true);
 				gui.setVisible(true);

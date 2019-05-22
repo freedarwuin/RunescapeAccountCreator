@@ -22,7 +22,7 @@ public class AccountCreationThread extends Thread {
 			String proxy = LoadProxies.getProxy();
 			String[] split = proxy.split(":");
 			try {
-				Main.createAccount(split[0], Integer.parseInt(split[1]));
+				Main.createAccount(split[0].trim(), Integer.parseInt(split[1].trim()));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (MalformedURLException e) {

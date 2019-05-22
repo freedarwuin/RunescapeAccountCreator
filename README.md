@@ -1,13 +1,10 @@
 ## RunescapeAccountCreator
-Simple RuneScape Account Creator.
-Official thread link: https://osbot.org/forum/topic/146443-account-creator-alpha/
+Creador de cuentas de RuneScape simple.
+Enlace oficial del hilo: https://osbot.org/forum/topic/146443-account-creator-alpha/
 
 ## Dependencies
-Dependencies are in the "libs" folder. These are necessary for the jar to be compiled. This uses Anti-Captcha (http://getcaptchasolution.com/espcjise9v) to solve captchas. Please register an account to get an API key.
-
+Las dependencias se encuentran en la carpeta "libs". Son necesarias para compilar el jar. Para resolver captchas, se utiliza Anti-Captcha (http://getcaptchasolution.com/espcjise9v). Registre una cuenta para obtener una clave API.
 ## How to use?
-Double click the .jar file you can download from the release section (Or build it yourself).
-Logger is now included in the program, but if you want to be 100% sure to receive logs, please run the program from the command line.
-To do this, open cmd/terminal, and type ```java -jar path/to/file.jar```. Program will log to the newest logger instance.
-
+Haga doble clic en el archivo .jar que puede descargar de la sección de lanzamiento (o compilarlo usted mismo).Logger is now included in the program, but if you want to be 100% sure to receive logs, please run the program from the command line.
+Para ello, abra cmd/terminal y escriba ```java -jar path/to/file.jar```. El programa iniciará sesión en la instancia de registrador más reciente.
 # I'm not responsible if you "waste" all your anti-captcha credits on this
